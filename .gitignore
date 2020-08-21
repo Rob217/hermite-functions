@@ -1,1 +1,8 @@
 *checkpoint.ipynb
+build*
+dist*
+Hermite_functions-0.1*
+Hermite_functions.egg-info*
+Hermite_functions/__pycache__*
+Hermite_functions/.ipynb_checkpoints
+.ipynb_checkpoints*
