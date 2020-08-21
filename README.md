@@ -33,9 +33,35 @@ The Hermite functions can be calculated efficiently using the following recurren
 
 where the first two Hermite functions are 
 
-<img src="https://github.com/Rob217/Hermite-functions/blob/master/equations/first_Hermite_functions.png" width="400" />
+<img src="https://github.com/Rob217/Hermite-functions/blob/master/equations/first_hermite_functions.png" width="250" />
 <!---
 \psi_0(x) = & \pi^{-1/4} \,\mathrm{e}^{-x^2/2}
 \\
 \psi_1(x) = & \sqrt{2} \pi^{-1/4} \,x\, \mathrm{e}^{-x^2/2}
 -->
+
+## Functions
+
+There are two main functions which employ the efficient recurrence relation method to calculate the Hermite functions:
+
+1. `Hermite_functions(n, x)` : this returns a dictionary with keys given by m for 0 <= m <= n. The recurrence relation calculates every value of m up to n, and so this function returns them all. 
+
+2. `Hermite_function(n, x)` : this returns just the final n which means the recurrence calculation can be made more memory efficient. For very large n and dimension of x this is slightly faster than `Hermite_functions` and is already in the same format as x rather than a dictionary.
+
+Additionally, this package provides two subsidiary functions which can be used to check consistency of the calculations:
+
+i. `Hermite_function_analytic(n, x)` : this uses the analytic expressions for psi_n(x) up to n=5.
+
+ii. `Hermite_function_direct(n, x)` : rather than using the recurrence relation, this employs  [```eval_hermite```](https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.eval_hermite.html) and [```factorial```](https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.factorial.html?highlight=factorial#scipy.special.factorial) from `scipy.special` to directly calculate the Hermite functions. However, because of the intractability of the Hermite polynomials and factorials, this fails for n larger than a couple hundred.
+
+For examples, see [examples](https://github.com/Rob217/Hermite-functions/tree/master/examples) section.
+
+
+## Installation
+
+
+
+
+## Final notes
+
+Comments and suggestions are very welcome!
