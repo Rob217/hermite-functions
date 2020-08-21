@@ -2,17 +2,9 @@
 
 This package calculates the [Hermite functions](https://en.wikipedia.org/wiki/Hermite_polynomials#Hermite_functions):
 
-<img src="https://render.githubusercontent.com/render/math?math=e^{i \pi} = -1">
+<img src="https://render.githubusercontent.com/render/math?math=\psi_n(x) = \frac{1}{\sqrt{2^n n!}} \frac{1}{\pi^{1/4}} \text{e}^{-x^2/2} H_n(x)">
 
-![formula](https://render.githubusercontent.com/render/math?math=e^{i \pi} = -1)
-
-$ \alpha$
-
-$
-\psi_n(x) = \frac{1}{\sqrt{2^n n!}} \frac{1}{\pi^{1/4}} \text{e}^{-x^2/2} H_n(x)
-$
-
-where $H_n(x)$ is the $n$th Hermite polynomial (in the physicist form).
+where <img src="https://render.githubusercontent.com/render/math?math=H_n(x)"> is the nth physicist's Hermite polynomial.
 
 They are related by a recurrence relation:
 $$
