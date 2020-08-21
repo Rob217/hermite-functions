@@ -59,8 +59,12 @@ For examples, see [examples](https://github.com/Rob217/Hermite-functions/tree/ma
 
 ## Installation
 
-
-
+To clone and install from GitHub:
+```bash
+git clone https://github.com/rob217/Hermite-functions.git
+cd Hermite-functions
+python setup.py install
+```
 
 ## Final notes
 
