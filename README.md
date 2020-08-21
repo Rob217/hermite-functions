@@ -6,15 +6,11 @@ This package calculates the [Hermite functions](https://en.wikipedia.org/wiki/He
 
 where <img src="https://render.githubusercontent.com/render/math?math=H_n(x)"> is the nth physicist's Hermite polynomial.
 
-They are related by a recurrence relation:
-$$
-x \psi_n(x) = \sqrt{\frac{n}{2}} \psi_{n-1}(x) + \sqrt{\frac{n+1}{2}} \psi_{n+1}(x).
-$$
-Rearranging gives:
-$$
-\sqrt{\frac{n+1}{2}} \psi_{n+1}(x) = x \psi_n(x) - \sqrt{\frac{n}{2}} \psi_{n-1}(x) ,
-$$
+It does this using the following recurrence relation:
 
-$$
-\psi_m(x) = \sqrt{\frac{2}{m}} x \psi_{m-1}(x) - \sqrt{\frac{m-1}{m}} \psi_{m-2}(x).
-$$
+<img src="https://render.githubusercontent.com/render/math?math=\psi_n(x) = \sqrt{\frac{n}{2}} \psi_{n-1}(x) + \sqrt{\frac{n+1}{2}} \psi_{n+1}(x)">
+
+Rearranging gives:
+
+<img src="https://render.githubusercontent.com/render/math?math=\psi_m(x) = \sqrt{\frac{2}{m}} x \psi_{m-1}(x) - \sqrt{\frac{m-1}{m}} \psi_{m-2}(x)">
+ 
