@@ -24,3 +24,18 @@ where `xZP = hbar / 2 m omega` is the zero point motion length, `hbar` is the re
 
 
 ### Calculation method
+The Hermite functions can be calculated efficiently using the following recurrence relation
+
+<img src="https://github.com/Rob217/Hermite-functions/blob/master/equations/recurrence_relation.png" width="400" />
+<!---
+\psi_n(x) = \sqrt{\frac{2}{n}} x \psi_{n-1}(x) - \sqrt{\frac{n-1}{n}} \psi_{n-2}(x)
+-->
+
+where the first two Hermite functions are 
+
+<img src="https://github.com/Rob217/Hermite-functions/blob/master/equations/first_Hermite_functions.png" width="400" />
+<!---
+\psi_0(x) = & \pi^{-1/4} \,\mathrm{e}^{-x^2/2}
+\\
+\psi_1(x) = & \sqrt{2} \pi^{-1/4} \,x\, \mathrm{e}^{-x^2/2}
+-->
