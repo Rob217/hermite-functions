@@ -1,42 +1,94 @@
-import unittest
-import os
+import pytest
 import numpy as np
-
-from Hermite_functions.Hermite_functions import Hermite_functions
-from Hermite_functions.Hermite_function_direct import Hermite_function_direct
+from hermite_functions.hermite_functions import hermite_functions
 
 
-class TestHermiteFunction(unittest.TestCase):
-    def testNegativeN(self):
-        self.assertRaises(ValueError, Hermite_functions, -1, 0)
+# test incorrect inputs
+def test_non_integer_n():
+    with pytest.raises(TypeError, match='n must be an integer'):
+        hermite_functions(1.0, 0)
 
-    def testNotIntegerN(self):
-        self.assertRaises(TypeError, Hermite_functions, 1.0, 0)
+def test_negative_n():
+    with pytest.raises(ValueError, match=r'n must be non-negative'):
+        hermite_functions(-1, 0)
 
-    def testXVals(self):
+@pytest.mark.parametrize("n", [-1, 6,])
+def test_n_outside_range(n):
+    with pytest.raises(ValueError):
+        hermite_functions(n, 0, method='analytic')
 
-        n_max = 10
-        x_vals = [np.linspace(-10, 10, 101), 10, np.array([-0.5])]
-        for x in x_vals:
-            try:
-                expected_vals = np.zeros((n_max + 1, len(x)))
-            except TypeError:
-                expected_vals = np.zeros((n_max + 1, 1))
-            for n in range(n_max + 1):
-                expected_vals[n, :] = Hermite_function_direct(n, x)
-            np.testing.assert_almost_equal(
-                Hermite_functions(n_max, x), expected_vals
-            )
-
-    def testReshape(self):
-        n = 10
-        x = np.ones((2, 3, 4))
-        transform_axes = ([0, 1, 2, 3], [3, 1, 0, 2])
-        new_dims = (3, 2, 4, 11)
-        self.assertEqual(
-            Hermite_functions(n, x, transform_axes).shape, new_dims
-        )
+def test_incorrect_method():
+    with pytest.raises(ValueError, match="Method not recognized."):
+        hermite_functions(0, 0, method='incorrect method')
 
 
-if __name__ == "__main__":
-    unittest.main()
+# test method: analytic
+test_data_analytic = [
+    (0, 0, 0.7511255444649425),
+    (1, 0, 0),
+    (2, 0, -0.5311259660135984),
+    (3, 0, 0),
+    (4, 0, 0.4599685791773267),
+    (5, 0, 0),
+    (0, 1, 0.45558067201133257),
+    (1, 1, 0.6442883651134752),
+    (1, np.array([-1, -0.5, 0]), np.array([-0.64428837, -0.46871702, 0.])),
+]
+@pytest.mark.parametrize("n,x,out", test_data_analytic)
+def test_analytic(n,x,out):
+    assert hermite_functions(n, x, all_n = False, method='analytic') == pytest.approx(out)
+
+def test_analytic_all_n():
+    x = np.linspace(-2, 2, 3)
+    n = 5
+    psi_expected = np.zeros([n+1, len(x)])
+    for m in range(n+1):
+        psi_expected[m, :] = hermite_functions(m, x, all_n=False, method='analytic')
+    np.testing.assert_array_equal(
+        hermite_functions(n, x, all_n=True, method='analytic'),
+        psi_expected
+    )
+
+
+# test method: direct
+@pytest.mark.parametrize("n,x,out", test_data_analytic)
+def test_direct(n,x,out):
+    assert hermite_functions(n, x, all_n = False, method='direct') == pytest.approx(out)
+
+def test_direct_all_n():
+    x = np.linspace(-2, 2, 11)
+    n = 10
+    psi_expected = np.zeros([n+1, len(x)])
+    for m in range(n+1):
+        psi_expected[m, :] = hermite_functions(m, x, all_n=False, method='direct')
+    np.testing.assert_array_equal(
+        hermite_functions(n, x, all_n=True, method='direct'),
+        psi_expected
+    )
+
+
+# test method: recursive
+test_data = [
+    (0, 0),
+    (1, 0),
+    (1, 1),
+    (2, 1),
+    (3, 3.3),
+    (10, 3.3),
+    (5, np.array([0.0, 0.5, 1.2])),
+]
+
+@pytest.mark.parametrize("n,x", test_data)
+def test_simple(n,x):
+    assert hermite_functions(n, x, all_n=False) == pytest.approx(hermite_functions(n, x, all_n=False, method='direct'))
+
+@pytest.mark.parametrize("n,x", test_data)
+def test_all_n(n,x):
+    assert hermite_functions(n, x, all_n=True) == pytest.approx(hermite_functions(n, x, all_n=True, method='direct'))
+
+def test_reshape():
+    n, x = (5, np.mgrid[-2:3, 0:4])
+    reshape = ([0, 1, 2, 3], [1, 3, 2, 0])
+    out = hermite_functions(n, x, all_n=True, move_axes=reshape)
+    out_check = np.moveaxis(hermite_functions(n, x, all_n=True), reshape[0], reshape[1])
+    np.testing.assert_array_equal(out, out_check)
