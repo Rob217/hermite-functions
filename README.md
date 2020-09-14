@@ -24,8 +24,9 @@ The Hermite functions are related to the wavefunctions of the [quantum harmonic 
 
 where `xZP = hbar / 2 m omega` is the zero point motion length, `hbar` is the reduced Planck constant, and `omega` is the harmonic oscillator frequency.
 
-![alt text](https://github.com/Rob217/Hermite-functions/blob/master/examples/QHO_states.png "Quantum harmonic oscillator wavefunctions")
-
+<p align="center">
+       <img src="https://github.com/Rob217/Hermite-functions/blob/master/examples/QHO_states.png" width="450" />
+</p>
 
 ## Installation
 
