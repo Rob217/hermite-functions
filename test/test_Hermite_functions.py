@@ -86,8 +86,13 @@ def test_simple(n,x):
 def test_all_n(n,x):
     assert hermite_functions(n, x, all_n=True) == pytest.approx(hermite_functions(n, x, all_n=True, method='direct'))
 
-def test_reshape():
-    n, x = (5, np.mgrid[-2:3, 0:4])
+# test move_axes
+@pytest.mark.parametrize('n,x', [
+    (5, np.mgrid[-2:3, 0:4]),
+    (0, np.mgrid[-2.1:4.5, 0:8]),
+    (1, np.mgrid[-1:1, -2:2]),
+])
+def test_move_axes(n,x):
     reshape = ([0, 1, 2, 3], [1, 3, 2, 0])
     out = hermite_functions(n, x, all_n=True, move_axes=reshape)
     out_check = np.moveaxis(hermite_functions(n, x, all_n=True), reshape[0], reshape[1])
