@@ -1,6 +1,6 @@
 # Hermite function calculator
 
-### Hermite functions
+## Hermite functions
 This package calculates the [Hermite functions](https://en.wikipedia.org/wiki/Hermite_polynomials#Hermite_functions),
 
 <img src="https://github.com/Rob217/Hermite-functions/blob/master/equations/Hermite_functions.png" width="400" />
@@ -23,16 +23,64 @@ where `xZP = hbar / 2 m omega` is the zero point motion length, `hbar` is the re
 ![alt text](https://github.com/Rob217/Hermite-functions/blob/master/examples/QHO_states.png "Quantum harmonic oscillator wavefunctions")
 
 
-### Calculation method
-The Hermite functions can be calculated efficiently using the following recurrence relation
+## Installation
 
+To clone from GitHub:
+```Shell
+$ git clone https://github.com/rob217/Hermite-functions.git
+```
+Then to install:
+```Shell
+$ cd Hermite-functions
+$ python setup.py install
+```
+
+
+## Usage
+
+```python
+>>> from hermite_functions import hermite_functions
+>>> hermite_functions(5, 0) # psi_n(0) for 0 <= n <= 5
+array([[ 0.75112554],
+       [ 0.        ],
+       [-0.53112597],
+       [-0.        ],
+       [ 0.45996858],
+       [ 0.        ]])
+>>> hermite_functions(5, 0, all_n=False) # psi_n(0) for n = 5
+0.0
+```
+
+The `move_axis` option causes `hermite_functions` to move about the axes of the output (as in [`np.moveaxis`](https://numpy.org/doc/stable/reference/generated/numpy.moveaxis.html)):
+```python
+>>> import numpy as np
+>>> x = np.mgrid[-2:3, 0:4]
+>>> hermite_functions(5, x).shape
+(6, 2, 5, 4)
+>>> old_new_axes = ([0, 1, 2, 3], [3, 2, 1, 0])
+>>> hermite_functions(5, x, move_axes=old_new_axes).shape
+(4, 5, 2, 6)
+```
+
+
+## Testing
+
+Test scripts are provided in `test/test_hermite_functions.py`. To run using `pytest`, use:
+```Shell
+$ pytest # run all tests
+```
+
+## Calculation method
+
+`hermite_functions` provides three methods for calculating the Hermite functions:
+- `recursive`
+    - This method is the default and should be used at all times except for testing or if `n<5` (in which case `analytic` is marginally more efficient).
+    - Makes use of the recurrence relation    
 <img src="https://github.com/Rob217/Hermite-functions/blob/master/equations/recurrence_relation.png" width="400" />
 <!---
 \psi_n(x) = \sqrt{\frac{2}{n}} x \psi_{n-1}(x) - \sqrt{\frac{n-1}{n}} \psi_{n-2}(x)
 -->
-
 where the first two Hermite functions are
-
 <img src="https://github.com/Rob217/Hermite-functions/blob/master/equations/first_hermite_functions.png" width="250" />
 <!---
 \psi_0(x) = & \pi^{-1/4} \,\mathrm{e}^{-x^2/2}
@@ -40,31 +88,6 @@ where the first two Hermite functions are
 \psi_1(x) = & \sqrt{2} \pi^{-1/4} \,x\, \mathrm{e}^{-x^2/2}
 -->
 
-## Functions
-
-There are two main functions which employ the efficient recurrence relation method to calculate the Hermite functions:
-
-1. `Hermite_functions(n, x)` : this returns a dictionary with keys given by m for 0 <= m <= n. The recurrence relation calculates every value of m up to n, and so this function returns them all.
-
-2. `Hermite_function(n, x)` : this returns just the final n which means the recurrence calculation can be made more memory efficient. For very large n and dimension of x this is slightly faster than `Hermite_functions` and is already in the same format as x rather than a dictionary.
-
-Additionally, this package provides two subsidiary functions which can be used to check consistency of the calculations:
-
-i. `Hermite_function_analytic(n, x)` : this uses the analytic expressions for psi_n(x) up to n=5.
-
-ii. `Hermite_function_direct(n, x)` : rather than using the recurrence relation, this employs  [```eval_hermite```](https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.eval_hermite.html) and [```factorial```](https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.factorial.html?highlight=factorial#scipy.special.factorial) from `scipy.special` to directly calculate the Hermite functions. However, because of the intractability of the Hermite polynomials and factorials, this fails for n larger than a couple hundred.
-
-For examples, see [examples](https://github.com/Rob217/Hermite-functions/tree/master/examples) section.
-
-
-## Installation
-
-To clone and install from GitHub:
-```bash
-git clone https://github.com/rob217/Hermite-functions.git
-cd Hermite-functions
-python setup.py install
-```
 
 ## Final notes
 
