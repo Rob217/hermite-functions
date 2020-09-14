@@ -7,11 +7,11 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 version = {}
-with open(os.path.join(_here, 'Hermite_functions', 'version.py')) as f:
+with open(os.path.join(_here, 'hermite_functions', 'version.py')) as f:
     exec(f.read(), version)
 
 setuptools.setup(
-    name="Hermite_functions",
+    name="hermite_functions",
     version=version['__version__'],
     author="Rob Bettles",
     author_email="rjbcoding@gmail.com",

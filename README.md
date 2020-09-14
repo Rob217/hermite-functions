@@ -101,6 +101,10 @@ $ pytest # run all tests
 -->
 
 
-## Final notes
+## Contributions
 
-Comments and suggestions are very welcome!
+Comments and contributions are very welcome!
+
+## License
+
+This package is covered by the [MIT License](https://github.com/Rob217/Hermite-functions/blob/master/LICENSE).
