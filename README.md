@@ -32,7 +32,7 @@ where `xZP = hbar / 2 m omega` is the zero point motion length, `hbar` is the re
 
 To clone from GitHub:
 ```Shell
-$ git clone https://github.com/rob217/Hermite-functions.git
+$ git clone https://github.com/rob217/hermite-functions.git
 ```
 Then to install:
 ```Shell
