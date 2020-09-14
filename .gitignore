@@ -8,3 +8,5 @@ Hermite_functions/.ipynb_checkpoints
 .ipynb_checkpoints*
 Hermite_functions_v0.1
 test_env_dir
+tmp/
+tmp*

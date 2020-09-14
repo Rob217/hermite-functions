@@ -75,17 +75,29 @@ $ pytest # run all tests
 `hermite_functions` provides three methods for calculating the Hermite functions:
 - `recursive`
     - This method is the default and should be used at all times except for testing or if `n<5` (in which case `analytic` is marginally more efficient).
-    - Makes use of the recurrence relation    
+    - Makes use of the recurrence relation
+
 <img src="https://github.com/Rob217/Hermite-functions/blob/master/equations/recurrence_relation.png" width="400" />
 <!---
 \psi_n(x) = \sqrt{\frac{2}{n}} x \psi_{n-1}(x) - \sqrt{\frac{n-1}{n}} \psi_{n-2}(x)
 -->
-where the first two Hermite functions are
+
+- `analytic`
+    - This method uses the analytic expressions for `psi_n` for `0<=n<=5`
+
 <img src="https://github.com/Rob217/Hermite-functions/blob/master/equations/first_hermite_functions.png" width="250" />
 <!---
 \psi_0(x) = & \pi^{-1/4} \,\mathrm{e}^{-x^2/2}
 \\
 \psi_1(x) = & \sqrt{2} \pi^{-1/4} \,x\, \mathrm{e}^{-x^2/2}
+-->
+
+- `direct`
+    - This method directly calculates `psi_n(x)` using the definition of the Hermite function. However, this becomes intractable for large `n` due to the explicit calculation of the factorials and Hermite polynomials and so should be used just for testing.
+
+<img src="https://github.com/Rob217/Hermite-functions/blob/master/equations/Hermite_functions.png" width="400" />
+<!---
+\psi_n(x) = \frac{1}{\sqrt{2^n n!}} \frac{1}{\pi^{1/4}} \text{e}^{-x^2/2} H_n(x)
 -->
 
 
