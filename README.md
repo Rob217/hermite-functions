@@ -67,6 +67,8 @@ The `move_axis` option causes `hermite_functions` to move about the axes of the 
 (4, 5, 2, 6)
 ```
 
+More examples can be found in [examples](https://github.com/Rob217/Hermite-functions/tree/master/examples).
+
 
 ## Testing
 
