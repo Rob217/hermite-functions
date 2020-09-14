@@ -1,12 +1,11 @@
 *checkpoint.ipynb
 build*
 dist*
-Hermite_functions-0.1*
-Hermite_functions.egg-info*
-Hermite_functions/__pycache__*
-Hermite_functions/.ipynb_checkpoints
+hermite_functions-0.1*
+hermite_functions.egg-info*
+hermite_functions/__pycache__*
+hermite_functions/.ipynb_checkpoints
 .ipynb_checkpoints*
-Hermite_functions_v0.1
 test_env_dir
 tmp/
 tmp*
