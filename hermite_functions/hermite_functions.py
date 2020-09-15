@@ -11,8 +11,8 @@ def hermite_functions(n, x, all_n=True, move_axes=(), method="recursive"):
 
     If all_n == True, then return all Hermite functions up to n
     If all_n == False, only return nth Hermite function
-    If using recursive method, then the latter is more memory efficient as it only stores
-    psi_n, psi_{n-1}, and psi_{n-2}
+    If using recursive method, then the latter is more memory efficient as it
+    only stores psi_n, psi_{n-1}, and psi_{n-2}
 
     The 'move_axes' option causes the output dimensions to be swapped around
     using np.moveaxis.

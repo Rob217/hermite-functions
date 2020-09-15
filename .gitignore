@@ -9,5 +9,5 @@ hermite_functions/.ipynb_checkpoints
 test_env_dir
 tmp/
 tmp*
-__pycache__/
+**/__pycache__/
 .pytest_cache/
