@@ -1,7 +1,8 @@
 import numpy as np
 from scipy.special import eval_hermite, factorial
 
-def hermite_functions(n, x, all_n=True, move_axes=(), method='recursive'):
+
+def hermite_functions(n, x, all_n=True, move_axes=(), method="recursive"):
     """
     Calculate the Hermite functions up to the nth order at position x, psi_n(x).
 
@@ -45,13 +46,13 @@ def hermite_functions(n, x, all_n=True, move_axes=(), method='recursive'):
 
     """
 
-    if method not in ['recursive', 'analytic', 'direct']:
+    if method not in ["recursive", "analytic", "direct"]:
         raise ValueError("Method not recognized.")
     if not (issubclass(type(n), int) or issubclass(type(n), np.integer)):
         raise TypeError("n must be an integer.")
     if n < 0:
         raise ValueError("n must be non-negative.")
-    if method=='analytic' and (n > 5):
+    if method == "analytic" and (n > 5):
         raise ValueError("n must not be greater than 5 for analytic calculation.")
 
     if all_n:
@@ -65,16 +66,15 @@ def hermite_functions(n, x, all_n=True, move_axes=(), method='recursive'):
     return psi_n
 
 
-
 def _Hermite_single_n(n, x, method):
-    '''
+    """
     Calculates psi_n(x) for a single value of n.
-    '''
+    """
 
-    if method == 'analytic':
+    if method == "analytic":
         return _H_analytic(n, x)
 
-    if method == 'direct':
+    if method == "direct":
         return _H_direct(n, x)
 
     psi_m_minus_2 = _H_analytic(0, x)
@@ -93,24 +93,23 @@ def _Hermite_single_n(n, x, method):
     return psi_m
 
 
-
 def _Hermite_all_n(n, x, method):
-    '''
+    """
     Calcualtes psi_m(x) for all 0 <= m <= n.
-    '''
+    """
 
     try:
         psi_n = np.zeros((n + 1,) + x.shape)
     except AttributeError:  # x does not have property 'shape'
         psi_n = np.zeros((n + 1, 1))
 
-    if method == 'analytic':
-        for m in range(n+1):
+    if method == "analytic":
+        for m in range(n + 1):
             psi_n[m, :] = _H_analytic(m, x)
         return psi_n
 
-    if method == 'direct':
-        for m in range(n+1):
+    if method == "direct":
+        for m in range(n + 1):
             psi_n[m, :] = _H_direct(m, x)
         return psi_n
 
@@ -123,24 +122,22 @@ def _Hermite_all_n(n, x, method):
         return psi_n
 
     for m in range(2, n + 1):
-        psi_n[m, :] = _H_recursive(m, x, psi_n[m-2, :], psi_n[m-1, :])
+        psi_n[m, :] = _H_recursive(m, x, psi_n[m - 2, :], psi_n[m - 1, :])
 
     return psi_n
 
 
-
 def _H_recursive(m, x, psi_m_minus_2, psi_m_minus_1):
-    '''
+    """
     Calculate psi_m(x) using recursion relation.
-    '''
+    """
     return np.sqrt(2 / m) * x * psi_m_minus_1 - np.sqrt((m - 1) / m) * psi_m_minus_2
 
 
-
 def _H_analytic(n, x):
-    '''
+    """
     Analytic expressions for psi_n(x) for 0 <= n <= 5.
-    '''
+    """
 
     if n == 0:
         return np.pi ** (-1 / 4) * np.exp(-(x ** 2) / 2)
@@ -170,14 +167,13 @@ def _H_analytic(n, x):
             * (4 * x ** 5 - 20 * x ** 3 + 15 * x)
             * np.exp(-(x ** 2) / 2)
         )
-    raise ValueError('n must be an integer between 0 and 5')
-
+    raise ValueError("n must be an integer between 0 and 5")
 
 
 def _H_direct(n, x):
-    '''
+    """
     Calculate psi_n(x) using explicit definition.
-    '''
+    """
     return (
         1
         / np.sqrt(2 ** n * factorial(n))
@@ -187,7 +183,7 @@ def _H_direct(n, x):
     )
 
 
-
 if __name__ == "__main__":
     import doctest
+
     doctest.testmod()

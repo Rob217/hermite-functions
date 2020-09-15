@@ -7,12 +7,12 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 version = {}
-with open(os.path.join(_here, 'hermite_functions', 'version.py')) as f:
+with open(os.path.join(_here, "hermite_functions", "version.py")) as f:
     exec(f.read(), version)
 
 setuptools.setup(
     name="hermite_functions",
-    version=version['__version__'],
+    version=version["__version__"],
     author="Rob Bettles",
     author_email="rjbcoding@gmail.com",
     description="Functions for calculating the Hermite functions",
@@ -25,10 +25,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    install_requires=[
-      'matplotlib',
-      'numpy',
-      'scipy'
-    ],
-    python_requires='>=3.6',
+    install_requires=["matplotlib", "numpy", "scipy"],
+    python_requires=">=3.6",
 )
